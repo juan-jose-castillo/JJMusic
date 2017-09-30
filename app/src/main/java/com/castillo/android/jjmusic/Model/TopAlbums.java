@@ -9,6 +9,10 @@ import java.util.List;
 
 public class TopAlbums {
     private ArrayList<Album> album;
+    ////
+
+
+
     private Attr attr;
 
     public ArrayList<Album> getAlbumList() {

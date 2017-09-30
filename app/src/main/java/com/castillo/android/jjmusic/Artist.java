@@ -3,27 +3,22 @@ package com.castillo.android.jjmusic;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.castillo.android.jjmusic.Adapters.AlbumAdapter;
-import com.castillo.android.jjmusic.Adapters.OnAlbumItemClickListener;
-import com.castillo.android.jjmusic.Model.Album;
-import com.castillo.android.jjmusic.Model.TopAlbum;
-import com.castillo.android.jjmusic.Model.TopAlbums;
+import com.castillo.android.jjmusic.Adapters.ArtistaAdapter;
+import com.castillo.android.jjmusic.Adapters.OnArtistaItemClickListener;
+import com.castillo.android.jjmusic.Model.Artista;
+import com.castillo.android.jjmusic.Model.TopArtist;
 import com.castillo.android.jjmusic.Services.ArtistDatabaseService;
 
 import java.util.ArrayList;
@@ -32,26 +27,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AlbumDetailActivity extends AppCompatActivity implements OnAlbumItemClickListener{
-    private  String mbid;
-    public String restore;
-    private RecyclerView albumRecyclerView;
-
+public class Artist extends AppCompatActivity implements OnArtistaItemClickListener {
+    private RecyclerView artistasRecyclerView;
     private int page;
     private boolean aptoParaCargar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_album_detail);
-        mbid = getIntent().getStringExtra("Mbid");
-
-        Log.i("Album Detail mbid", "codigo :" + mbid);
-        albumRecyclerView = (RecyclerView) findViewById(R.id.albumRecyclerView);
-        albumRecyclerView.setHasFixedSize(true);
+        setContentView(R.layout.activity_main2);
+        artistasRecyclerView = (RecyclerView) findViewById(R.id.artistasRecyclerView);
+        artistasRecyclerView.setHasFixedSize(true);
         final GridLayoutManager layoutManager = new GridLayoutManager(this,1);
-        albumRecyclerView.setLayoutManager(layoutManager);
-        albumRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        artistasRecyclerView.setLayoutManager(layoutManager);
+        artistasRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -72,15 +60,12 @@ public class AlbumDetailActivity extends AppCompatActivity implements OnAlbumIte
                 }
             }
         });
-        aptoParaCargar=true;
+        showToolbar("Top De Artistas", false);
+       aptoParaCargar=true;
         page = 1;
-        showToolbar("Albums", true);
         obtenerEstado();
 
-
-
     }
-
     private void obtenerEstado(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
@@ -102,35 +87,39 @@ public class AlbumDetailActivity extends AppCompatActivity implements OnAlbumIte
         }
     }
 
+
     private void obtenerDatos(int page) {
         ArtistDatabaseService service = ServiceGenerator.createService(ArtistDatabaseService.class);
-        Call<TopAlbum> call3 = service.obtenerAlbums(mbid, "123d7d50ffa67603998ec1042793fd68", "json",page);
-        Log.i("call3", call3.request().url().toString());
-        call3.enqueue(new Callback<TopAlbum>() {
-
+        Call<TopArtist> call2 = service.obtenerArtistas("123d7d50ffa67603998ec1042793fd68", "json",page);
+        call2.enqueue(new Callback<TopArtist>() {
             @Override
-            public void onResponse(Call<TopAlbum> call, Response<TopAlbum> response) {
+            public void onResponse(Call<TopArtist> call, Response<TopArtist> response) {
                 aptoParaCargar=true;
                 if (response.isSuccessful()) {
-                    Log.i("Album", "isSuccesfull");
-                    TopAlbum respuesta = response.body();
-                    ArrayList<Album> lista = respuesta.getTopAlbums().getAlbumList();
-                    AlbumAdapter albumAdapter = new AlbumAdapter(lista,AlbumDetailActivity.this);
-                    albumRecyclerView.setAdapter(albumAdapter);
-                } else Log.i("Album", "else if ");
+                    TopArtist respuesta = response.body();
+                    ArrayList<Artista> lista = respuesta.getTopartists().getArtist();
+                    ArtistaAdapter adaptador = new ArtistaAdapter(lista , Artist.this);
+                    artistasRecyclerView.setAdapter(adaptador);
+//                    }
+                } else {
 
+                }
             }
 
             @Override
-            public void onFailure(Call<TopAlbum> call, Throwable t) {
+            public void onFailure(Call<TopArtist> call, Throwable t) {
                 aptoParaCargar=true;
-                Log.i("Album", "onFailure " + t.getMessage());
-                Log.i("Album", "onFailure " + t.getCause());
-
+                Log.i("Artista", "onFailure");
             }
         });
     }
 
+    @Override
+    public void onArtistaItemClick(Artista a) {
+        Intent intent = new Intent(this, ArtistaDetailActivity.class);
+        intent.putExtra("Mbid", a.getMbid());
+        startActivity(intent);
+    }
 
     public void showToolbar(String title, boolean upButton) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -138,19 +127,6 @@ public class AlbumDetailActivity extends AppCompatActivity implements OnAlbumIte
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
 
-    }
-
-    @Override
-    public void onAlbumItemClick(Album album) {
-        Intent intent = new Intent(this, TrackDetail.class);
-        intent.putExtra("Mbid",album.getMbid());
-        startActivity(intent);
-
-    }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return false;
     }
 
 }

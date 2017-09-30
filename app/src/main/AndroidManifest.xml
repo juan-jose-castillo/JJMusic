@@ -3,6 +3,7 @@
     package="com.castillo.android.jjmusic">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -11,19 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Artist" />
         <activity
             android:name=".ArtistaDetailActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".Artist">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Artist" />
         </activity>
         <activity
             android:name=".AlbumDetailActivity"
@@ -32,15 +27,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ArtistaDetailActivity" />
         </activity>
-        <activity android:name=".TrackDetail"
-            android:parentActivityName=".AlbumDetailActivity"
-            >
+        <activity
+            android:name=".TrackDetail"
+            android:parentActivityName=".AlbumDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AlbumDetailActivity"
-                />
-
+                android:value=".AlbumDetailActivity" />
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".TrackDetailActivity" />
+        <activity android:name=".ResultSearch"></activity>
     </application>
 
 </manifest>
