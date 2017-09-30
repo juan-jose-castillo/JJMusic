@@ -1,6 +1,7 @@
-###TOP MUSIC
+# TOP MUSIC
 
-Esta aplicación, muestra el top de artistas de tu país, según LAST.FM. Siendo un servicio que permite conocer artistas , album, track de manera de tallada. 
+
+Esta aplicación, que muestra el top de artistas de tu país, según LAST.FM. Siendo un servicio que permite conocer artistas , albums, tracks, de manera detallada.
  Se consumió los siguientes servicios:
 * Lista de artistas de un país
 * Información detallada de los artistas
