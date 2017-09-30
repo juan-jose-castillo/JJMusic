@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="generos_musicales">
+        <item>rock</item>
+        <item>rock and roll</item>
+        <item>clasica</item>
+        <item>cumbia</item>
+        <item>blues</item>
+        <item>jazz</item>
+        <item>gospel</item>
+        <item>soul</item>
+        <item>country</item>
+        <item>funk</item>
+        <item>disco</item>
+        <item>house</item>
+        <item>techno</item>
+        <item>pop</item>
+        <item>ska</item>
+        <item>reggae</item>
+        <item>hip hop</item>
+        <item>drum and bass</item>
+        <item>garage</item>
+        <item>flamenco</item>
+        <item>salsa</item>
+        <item>reggaeton</item>
+        <item>instrumental</item>
+        <item></item>
+
+    </string-array>
+</resources>
