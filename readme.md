@@ -1,7 +1,7 @@
 # TOP MUSIC
 
 
-Es una aplicación, que muestra el top de artistas de tu Bolivia, según LAST.FM.
+Es una aplicación, que muestra el top de artistas de tu país, según LAST.FM.
 
 ## LAST.FM
 Es un servicio que permite conocer artistas , albums, tracks, de manera detallada.
