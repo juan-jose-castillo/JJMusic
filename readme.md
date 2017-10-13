@@ -15,6 +15,9 @@ Es un servicio que permite conocer artistas , albums, tracks, de manera detallad
 * Lista de canciones según la búsqueda
 * Búsqueda de artistas, canciones, albums
 
-![Alt text](readme_image/01.png "Pantalla de bienvenida")![Alt text](readme_image/02.png "Top de artistas")
-![Alt text](readme_image/03.png "Detale de artistas")![Alt text](readme_image/04.png "Lista de albums")
-![Alt text](readme_image/05.png "Lista de pistas")![Alt text](readme_image/06.png "Búsqueda de artistas")
+![Alt text](readme_image/01.png "Pantalla de bienvenida")
+![Alt text](readme_image/02.png "Top de artistas")
+![Alt text](readme_image/03.png "Detale de artistas")
+![Alt text](readme_image/04.png "Lista de albums")
+![Alt text](readme_image/05.png "Lista de pistas")
+![Alt text](readme_image/06.png "Búsqueda de artistas")
