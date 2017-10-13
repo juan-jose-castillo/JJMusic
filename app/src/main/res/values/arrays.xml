@@ -3,22 +3,33 @@
     <string-array name="generos_musicales">
         <item>rock</item>
         <item>rock and roll</item>
+        <item>rock progresivo</item>
+        <item>trash metal</item>
         <item>clasica</item>
         <item>cumbia</item>
+        <item>nacional</item>
+        <item>folcklore</item>
         <item>blues</item>
+        <item>balada</item>
         <item>jazz</item>
         <item>gospel</item>
         <item>soul</item>
         <item>country</item>
         <item>funk</item>
+        <item>banda</item>
         <item>disco</item>
+        <item>electronica</item>
+        <item>rap</item>
+        <item>bachata</item>
         <item>house</item>
         <item>techno</item>
+        <item>90s</item>
         <item>pop</item>
         <item>ska</item>
         <item>reggae</item>
         <item>hip hop</item>
         <item>drum and bass</item>
+        <item>female vocalist</item>
         <item>garage</item>
         <item>flamenco</item>
         <item>salsa</item>
