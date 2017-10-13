@@ -3,28 +3,26 @@ package com.castillo.android.jjmusic;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.castillo.android.jjmusic.Adapters.AlbumAdapter;
+import com.castillo.android.jjmusic.Adapters.AlbumSearchAdapter;
 import com.castillo.android.jjmusic.Adapters.OnAlbumItemClickListener;
 import com.castillo.android.jjmusic.Model.Album;
-import com.castillo.android.jjmusic.Model.TopAlbum;
-import com.castillo.android.jjmusic.Model.TopAlbums;
+import com.castillo.android.jjmusic.Model.AlbumModel;
+import com.castillo.android.jjmusic.Model.SearchAlbumModel;
 import com.castillo.android.jjmusic.Services.ArtistDatabaseService;
 
 import java.util.ArrayList;
@@ -33,22 +31,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AlbumDetailActivity extends AppCompatActivity {
-    //implements OnAlbumItemClickListener{
-    private String mbid;
+/**
+ * Created by juanjosecastillo on 10/10/17.
+ */
+
+public class ResultSearchAlbum extends AppCompatActivity implements OnAlbumItemClickListener {
     public String restore;
     private RecyclerView albumRecyclerView;
-
     private int page;
     private boolean aptoParaCargar;
+    private String Busqueda;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
-        mbid = getIntent().getStringExtra("Mbid");
-
-        Log.i("Album Detail mbid", "codigo :" + mbid);
+        Busqueda = getIntent().getStringExtra("Busqueda");
+        AlbumDetailActivity ada = new AlbumDetailActivity();
         albumRecyclerView = (RecyclerView) findViewById(R.id.albumRecyclerView);
         albumRecyclerView.setHasFixedSize(true);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
@@ -63,8 +63,6 @@ public class AlbumDetailActivity extends AppCompatActivity {
                     int pastVisibleItems = layoutManager.findLastCompletelyVisibleItemPosition();
                     if (aptoParaCargar) {
                         if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
-                            Log.i("UNO", " Llegamos al final.");
-
                             aptoParaCargar = false;
                             page += 1;
                             obtenerDatos(page);
@@ -75,9 +73,42 @@ public class AlbumDetailActivity extends AppCompatActivity {
         });
         aptoParaCargar = true;
         page = 1;
-        showToolbar("Albums", true);
+        showToolbar("Búsqueda De Albums", true);
         obtenerEstado();
 
+
+    }
+
+    private void obtenerDatos(int page) {
+        ArtistDatabaseService service = ServiceGenerator.createService(ArtistDatabaseService.class);
+        Call<SearchAlbumModel> call = service.obtenerBusquedaAlbum(Busqueda, "123d7d50ffa67603998ec1042793fd68", "json");
+        call.enqueue(new Callback<SearchAlbumModel>() {
+            @Override
+            public void onResponse(Call<SearchAlbumModel> call, Response<SearchAlbumModel> response) {
+                if (response.isSuccessful()) {
+
+                    try {
+                        SearchAlbumModel respuesta = response.body();
+                        ArrayList<AlbumModel> lista = respuesta.getResults().getAlbummatches().getAlbum();
+                        AlbumSearchAdapter albumAdapter = new AlbumSearchAdapter(lista, ResultSearchAlbum.this);
+                        albumRecyclerView.setAdapter(albumAdapter);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    };
+
+                } else {
+                    Log.i("album", "is not succesfull");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchAlbumModel> call, Throwable t) {
+                aptoParaCargar = true;
+
+                Log.i("album", "is not onfailure" + t.getCause() + " mas " + t.getMessage());
+            }
+        });
 
     }
 
@@ -102,41 +133,6 @@ public class AlbumDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void obtenerDatos(int page) {
-        ArtistDatabaseService service = ServiceGenerator.createService(ArtistDatabaseService.class);
-        Call<TopAlbum> call3 = service.obtenerAlbums(mbid, "123d7d50ffa67603998ec1042793fd68", "json", page);
-        Log.i("call3", call3.request().url().toString());
-        call3.enqueue(new Callback<TopAlbum>() {
-
-            @Override
-            public void onResponse(Call<TopAlbum> call, Response<TopAlbum> response) {
-                aptoParaCargar = true;
-                if (response.isSuccessful()) {
-                    try {
-                        Log.i("Album", "isSuccesfull");
-                        TopAlbum respuesta = response.body();
-                        ArrayList<Album> lista = respuesta.getTopAlbums().getAlbum();
-                        AlbumAdapter albumAdapter = new AlbumAdapter(lista, AlbumDetailActivity.this);
-                        albumRecyclerView.setAdapter(albumAdapter);
-                    } catch (Exception e) {
-                        Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
-                        onBackPressed();
-                    };
-                } else Log.i("Album", "else if ");
-
-            }
-
-            @Override
-            public void onFailure(Call<TopAlbum> call, Throwable t) {
-                aptoParaCargar = true;
-                Log.i("Album", "onFailure " + t.getMessage());
-                Log.i("Album", "onFailure " + t.getCause());
-
-            }
-        });
-    }
-
-
     public void showToolbar(String title, boolean upButton) {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -145,17 +141,18 @@ public class AlbumDetailActivity extends AppCompatActivity {
 
     }
 
-    //    @Override
-//    public void onAlbumItemClick(Album album) {
-//        Intent intent = new Intent(this, TrackDetail.class);
-//        intent.putExtra("Mbid",album.getMbid());
-//        startActivity(intent);
-//
-//    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return false;
     }
 
+    @Override
+    public void onAlbumItemClick(Album album) {
+
+        Intent intent = new Intent(this, TrackDetail.class);
+        intent.putExtra("Mbid", album.getMbid());
+        startActivity(intent);
+
+    }
 }

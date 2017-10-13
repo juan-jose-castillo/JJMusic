@@ -44,7 +44,7 @@ public class ResultSearch extends AppCompatActivity {
         resultsearchRecyclerView.setHasFixedSize(true);
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 1);
         resultsearchRecyclerView.setLayoutManager(layoutManager);
-        showToolbar("Resultado de Busqueda", true);
+        showToolbar("Búsqueda de Tracks", true);
         aptoParaCargar = true;
         page = 1;
         obtenerEstado();
@@ -81,10 +81,15 @@ public class ResultSearch extends AppCompatActivity {
             public void onResponse(Call<ResultSearchModel> call, Response<ResultSearchModel> response) {
                  aptoParaCargar=true;
                 if (response.isSuccessful()) {
+                 try{
                     ResultSearchModel respuesta = response.body();
                     ArrayList<ResultTrack> lista =  respuesta.getResults().getTrackmatches().getTrack();
                     ResultSearchAdapter adapter = new ResultSearchAdapter(lista,ResultSearch.this);
                     resultsearchRecyclerView.setAdapter(adapter);
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                };
                 }
                  else
                 {

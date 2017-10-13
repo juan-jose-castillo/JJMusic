@@ -4,6 +4,8 @@ import com.castillo.android.jjmusic.Model.AlbumRespuesta;
 import com.castillo.android.jjmusic.Model.Albuminfo;
 import com.castillo.android.jjmusic.Model.ArtistaRespuestaDetail;
 import com.castillo.android.jjmusic.Model.ResultSearchModel;
+import com.castillo.android.jjmusic.Model.SearchAlbumModel;
+import com.castillo.android.jjmusic.Model.SearchArtistModel;
 import com.castillo.android.jjmusic.Model.TopAlbum;
 import com.castillo.android.jjmusic.Model.TopArtist;
 import com.castillo.android.jjmusic.Model.TopTracks;
@@ -38,4 +40,13 @@ public interface ArtistDatabaseService {
                                                                                          @Query("format")String format);
     @GET("?method=track.search")Call<ResultSearchModel> obtenerDetalleBusqueda(@Query("track")String track, @Query("api_key") String apikey,
                                                                                @Query("format")String format);
+    /*
+    ?method=artist.search&artist=mana&api_key=apokey&format=json
+     */
+    @GET("?method=artist.search")Call<SearchArtistModel> obtenerBusquedaArtist(@Query("artist")String track, @Query("api_key") String apikey,
+                                                                              @Query("format")String format);
+    //?method=album.search&album=entre%20dos%20aguas&api_key=api&format=json
+    @GET("?method=album.search")Call<SearchAlbumModel> obtenerBusquedaAlbum(@Query("album")String track, @Query("api_key") String apikey,
+                                                                            @Query("format")String format);
 }
+

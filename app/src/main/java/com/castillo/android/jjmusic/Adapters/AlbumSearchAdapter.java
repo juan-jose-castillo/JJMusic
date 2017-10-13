@@ -10,9 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.castillo.android.jjmusic.AlbumDetailActivity;
-import com.castillo.android.jjmusic.ArtistaDetailActivity;
 import com.castillo.android.jjmusic.Model.Album;
+import com.castillo.android.jjmusic.Model.AlbumModel;
 import com.castillo.android.jjmusic.Model.Image;
 import com.castillo.android.jjmusic.R;
 import com.castillo.android.jjmusic.TrackDetail;
@@ -21,21 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by juanjosecastillo on 18/9/17.
+ * Created by juanjosecastillo on 11/10/17.
  */
 
-public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> {
-    private ArrayList<Album> dataset;
+public class AlbumSearchAdapter extends RecyclerView.Adapter<AlbumSearchAdapter.ViewHolder> {
+    private ArrayList<AlbumModel> dataset;
     private Context context;
-    private OnAlbumItemClickListener onAlbumItemClickListener;
 
-
-    //public AlbumAdapter(ArrayList<Album> dataset, AlbumDetailActivity context) {
-    public AlbumAdapter(ArrayList<Album> dataset, Context context) {
+    public AlbumSearchAdapter(ArrayList<AlbumModel> dataset, Context context) {
         this.dataset = dataset;
         this.context = context;
-        //this.onAlbumItemClickListener = context;
-
     }
 
     @Override
@@ -43,14 +37,13 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_album, parent, false);
 
         return new ViewHolder(view);
-
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Album album = dataset.get(position);
+        final AlbumModel album = dataset.get(position);
         holder.tituloAlbum.setText(album.getName());
-        holder.escuchadoAlbum.setText("Reproducido: " + album.getPlaycount());
+        holder.escuchadoAlbum.setText("Artista: " + album.getArtist());
         List<Image> url = album.getImage();
         Glide.with(context).load(url.get(3).getText()).into(holder.imagenAlbum);
         //holder.setOnAlbumItemClickListener(album,onAlbumItemClickListener);
@@ -63,7 +56,6 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
             }
         });
-
 
     }
 
@@ -83,17 +75,11 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
             escuchadoAlbum = (TextView) itemView.findViewById(R.id.escuchadoTextView);
 
         }
-
-//        public void setOnAlbumItemClickListener(final Album album, final OnAlbumItemClickListener onAlbumItemClickListener) {
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    onAlbumItemClickListener.onAlbumItemClick(album);
-//
-//                }
-//            });
-//
-//        }
     }
 
 }
+
+
+
+
+

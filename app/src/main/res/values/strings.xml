@@ -1,14 +1,15 @@
 <resources>
-    <string name="app_name">TopArtist</string>
+    <string name="app_name">Top Music</string>
     <string name="titulo_artist">Titulo</string>
     <string name="list">Escuchado</string>
     <string name="toolbar_title_detail_artist">Conociendo a tu artista</string>
     <string name="toolbar_title_home">Top De Artistas</string>
     <string name="title_activity_main">Top Music</string>
-    <string name="action_settings">About me</string>
+    <string name="action_settings">Acerca de</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="summary">TOP MUSIC, muestra el top de artistas de tu país, según LAST FM. Siendo un servicio que permite conocer artistas , album, tracks, de manera detallada. </string>
+    <string name="dialog_search">No se encontraron datos</string>
 </resources>

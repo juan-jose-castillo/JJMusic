@@ -93,6 +93,10 @@ public class ArtistaDetailActivity extends AppCompatActivity {
             public void onResponse(Call<ArtistaRespuestaDetail> call, Response<ArtistaRespuestaDetail> response) {
                 if (response.isSuccessful()){
                     ArtistaRespuestaDetail respuesta = response.body();
+
+                    try {
+
+                    ///////
                     String nombre = respuesta.getArtist().getName();
                     titulo.setText(respuesta.getArtist().getName());
                     List<Image> url = respuesta.getArtist().getImage();
@@ -100,6 +104,11 @@ public class ArtistaDetailActivity extends AppCompatActivity {
                     resumen.setText(respuesta.getArtist().getBio().getSummary());
                     published.setText(" Publicado: "+respuesta.getArtist().getBio().getPublished());
                     Log.i("Atista"," la banda:" + nombre);
+                    //////
+                    }catch (Exception e){
+                        Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    };
 
 
                 }
@@ -111,6 +120,11 @@ public class ArtistaDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
     public void showToolbar(String title, boolean upButton)

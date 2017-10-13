@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.castillo.android.jjmusic.Model.Image;
@@ -53,7 +54,8 @@ public class TrackDetailActivity extends AppCompatActivity {
         fab.setVisibility(View.INVISIBLE);
 
     }
-    private void obtenerEstado(){
+
+    private void obtenerEstado() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -81,17 +83,18 @@ public class TrackDetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<TrackDetailRespuesta> call, Response<TrackDetailRespuesta> response) {
                 if (response.isSuccessful()) {
-
-                    TrackDetailRespuesta respuesta = response.body();
-                    titulo.setText(respuesta.getTrack().getArtist().getName());
-
-
-                    published.setText("Track: " + respuesta.getTrack().getName() + " / " +
-                            respuesta.getTrack().getWiki().getPublished());
-                    resumen.setText(respuesta.getTrack().getWiki().getSummary());
-
-
-                    Glide.with(getApplicationContext()).load(Url).into(foto);
+                    try {
+                        TrackDetailRespuesta respuesta = response.body();
+                        titulo.setText(respuesta.getTrack().getArtist().getName());
+                        published.setText("Track: " + respuesta.getTrack().getName() + " / " +
+                                respuesta.getTrack().getWiki().getPublished());
+                        resumen.setText(respuesta.getTrack().getWiki().getSummary());
+                        Glide.with(getApplicationContext()).load(Url).into(foto);
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+                    ;
                 } else {
                     Log.i("Track", "Innossuccesfull");
                 }

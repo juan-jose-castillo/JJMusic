@@ -27,6 +27,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -54,21 +56,55 @@ public class MainActivity extends AppCompatActivity {
                 final Dialog dialog = new Dialog(MainActivity.this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_custom);
+                final EditText hint = (EditText) dialog.findViewById(R.id.busquedaEditText);
+                if(mViewPager.getCurrentItem()==0){
+                    hint.setHint("Nombre De Artista");
+                }if(mViewPager.getCurrentItem()==1){
+                    hint.setHint("Nombre De Canción");
+                }if(mViewPager.getCurrentItem()==2){
+                    hint.setHint("Nombre De Album");
+                }
                 dialog.show();
                 final EditText busqueda = (EditText) dialog.findViewById(R.id.busquedaEditText);
                 Button buscar = (Button) dialog.findViewById(R.id.buscarButton);
                 buscar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String datos =  busqueda.getText().toString();
-                        if (datos.equals("")) {
-                            Toast.makeText(MainActivity.this, "Ingresa tu busqueda", Toast.LENGTH_SHORT).show();
+                        String datos = busqueda.getText().toString();
+                        if (mViewPager.getCurrentItem() == 0) {
+                            if (datos.equals("")) {
+                                Toast.makeText(MainActivity.this, "Ingresa tu búsqueda de artista", Toast.LENGTH_SHORT).show();
 
-                        } else {
-                            Intent intent = new Intent(getBaseContext(), ResultSearch.class);
-                            intent.putExtra("Busqueda", busqueda.getText().toString());
-                            startActivity(intent);
-                            dialog.dismiss();
+                            } else {
+                                Intent intent = new Intent(getBaseContext(), ResultSearchArtist.class);
+                                intent.putExtra("Busqueda", busqueda.getText().toString());
+                                startActivity(intent);
+                                dialog.dismiss();
+                            }
+
+                        }
+                        if (mViewPager.getCurrentItem() == 1) {
+                            if (datos.equals("")) {
+                                Toast.makeText(MainActivity.this, "Ingresa tu búsqueda de canción", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Intent intent = new Intent(getBaseContext(), ResultSearch.class);
+                                intent.putExtra("Busqueda", busqueda.getText().toString());
+                                startActivity(intent);
+                                dialog.dismiss();
+                            }
+
+                        }if (mViewPager.getCurrentItem() == 2) {
+                            if (datos.equals("")) {
+                                Toast.makeText(MainActivity.this, "Ingresa tu búsqueda de album", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                Intent intent = new Intent(getBaseContext(), ResultSearchAlbum.class);
+                                intent.putExtra("Busqueda", busqueda.getText().toString());
+                                startActivity(intent);
+                                dialog.dismiss();
+                            }
+
                         }
 
                     }
@@ -170,4 +206,6 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
 }

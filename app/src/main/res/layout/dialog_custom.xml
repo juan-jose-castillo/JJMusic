@@ -8,6 +8,7 @@
     >
 
         <TextView
+            android:id="@+id/nombre_custom_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="INGRESA TU BUSQUEDA"
@@ -17,10 +18,12 @@
 
         <EditText
             android:id="@+id/busquedaEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:hint="Rata Blanca Mujer Amante" />
+            android:hint="Rata Blanca Mujer Amante"
+            android:singleLine="true"
+            />
 
         <Button
             android:id="@+id/buscarButton"

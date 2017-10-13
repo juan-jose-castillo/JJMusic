@@ -84,7 +84,7 @@ public class ArtistFragment extends Fragment implements OnArtistaItemClickListen
                     ArrayList<Artista> lista = respuesta.getTopartists().getArtist();
                     ArtistaAdapter adaptador = new ArtistaAdapter(lista,getContext());
                     artistasRecyclerView.setAdapter(adaptador);
-//                    }
+
                 } else {
 
                 }
@@ -94,6 +94,8 @@ public class ArtistFragment extends Fragment implements OnArtistaItemClickListen
             public void onFailure(Call<TopArtist> call, Throwable t) {
                 aptoParaCargar=true;
                 Log.i("Artista", "onFailure");
+
+
             }
         });
     }

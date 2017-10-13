@@ -10,16 +10,13 @@ import java.util.List;
 public class TopAlbums {
     private ArrayList<Album> album;
     ////
-
-
-
     private Attr attr;
 
-    public ArrayList<Album> getAlbumList() {
+    public ArrayList<Album> getAlbum() {
         return album;
     }
 
-    public void setAlbumList(ArrayList<Album> album) {
+    public void setAlbum(ArrayList<Album> album) {
         this.album = album;
     }
 

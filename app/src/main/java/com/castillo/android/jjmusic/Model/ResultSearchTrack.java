@@ -8,8 +8,7 @@ import java.util.ArrayList;
 
 public class ResultSearchTrack {
     private ArrayList<ResultTrack> track;
-
-    public ArrayList<ResultTrack> getTrack() {
+        public ArrayList<ResultTrack> getTrack() {
         return track;
     }
 

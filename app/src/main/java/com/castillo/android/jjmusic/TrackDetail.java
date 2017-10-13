@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.castillo.android.jjmusic.Adapters.TrackAdapter;
 import com.castillo.android.jjmusic.Model.Albuminfo;
@@ -54,15 +55,18 @@ public class TrackDetail extends AppCompatActivity {
         call4.enqueue(new Callback<Albuminfo>() {
             @Override
             public void onResponse(Call<Albuminfo> call, Response<Albuminfo> response) {
-
+            try{
                 Albuminfo albuminfo = response.body();
                 showToolbar(albuminfo.getAlbum().getName(), true);
                 ArrayList<Track> tracks = albuminfo.getAlbum().getTracks().getTrack();
                 TrackAdapter trackAdapter = new TrackAdapter(tracks, TrackDetail.this);
                 trackRecyclerView.setAdapter(trackAdapter);
-
                 mbid2 = albuminfo.getAlbum().getMbid();
                 Log.i("Track","mbid2 :"+mbid2);
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
+                onBackPressed();
+            };
             }
 
             @Override

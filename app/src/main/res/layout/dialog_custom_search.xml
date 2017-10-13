@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="230dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_centerHorizontal="true"
+    >
+
+    <TextView
+        android:id="@+id/nombre_custom_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Atención"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimary"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_search"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ok"
+        android:layout_gravity="center_horizontal"
+        />
+
+
+
+</LinearLayout>

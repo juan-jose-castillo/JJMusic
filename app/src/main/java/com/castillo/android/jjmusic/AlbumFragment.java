@@ -90,10 +90,12 @@ public class AlbumFragment extends Fragment {
                 aptoParaCargar=true;
                 if(response.isSuccessful())
                 {
+
                     AlbumRespuesta respuesta = response.body();
-                    ArrayList<Album> lista = respuesta.getAlbums().getAlbumList();
+                    ArrayList<Album> lista = respuesta.getAlbums().getAlbum();
                     AlbumTagAdapter adapter = new AlbumTagAdapter(lista,getContext());
                     albumsGeneroRecyclerView.setAdapter(adapter);
+
 
                 }
 
