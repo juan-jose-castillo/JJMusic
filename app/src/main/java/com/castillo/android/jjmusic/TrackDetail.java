@@ -46,27 +46,27 @@ public class TrackDetail extends AppCompatActivity {
         obtenerEstado();
 
 
-
-
     }
-    public void obtenerDatos(){
+
+    public void obtenerDatos() {
         ArtistDatabaseService service = ServiceGenerator.createService(ArtistDatabaseService.class);
         Call<Albuminfo> call4 = service.obtenerDetallePista("123d7d50ffa67603998ec1042793fd68", mbid2, "json");
         call4.enqueue(new Callback<Albuminfo>() {
             @Override
             public void onResponse(Call<Albuminfo> call, Response<Albuminfo> response) {
-            try{
-                Albuminfo albuminfo = response.body();
-                showToolbar(albuminfo.getAlbum().getName(), true);
-                ArrayList<Track> tracks = albuminfo.getAlbum().getTracks().getTrack();
-                TrackAdapter trackAdapter = new TrackAdapter(tracks, TrackDetail.this);
-                trackRecyclerView.setAdapter(trackAdapter);
-                mbid2 = albuminfo.getAlbum().getMbid();
-                Log.i("Track","mbid2 :"+mbid2);
-            }catch (Exception e){
-                Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
-                onBackPressed();
-            };
+                try {
+                    Albuminfo albuminfo = response.body();
+                    showToolbar(albuminfo.getAlbum().getName(), true);
+                    ArrayList<Track> tracks = albuminfo.getAlbum().getTracks().getTrack();
+                    TrackAdapter trackAdapter = new TrackAdapter(tracks, TrackDetail.this);
+                    trackRecyclerView.setAdapter(trackAdapter);
+                    mbid2 = albuminfo.getAlbum().getMbid();
+                    Log.i("Track", "mbid2 :" + mbid2);
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "No se encontro información!!", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
+                ;
             }
 
             @Override
@@ -75,7 +75,8 @@ public class TrackDetail extends AppCompatActivity {
             }
         });
     }
-    private void obtenerEstado(){
+
+    private void obtenerEstado() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -104,6 +105,7 @@ public class TrackDetail extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(upButton);
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

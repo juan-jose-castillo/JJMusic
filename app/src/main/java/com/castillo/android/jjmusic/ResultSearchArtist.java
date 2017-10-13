@@ -102,17 +102,6 @@ public class ResultSearchArtist extends AppCompatActivity implements OnArtistaIt
             }
         });
 
-//        Call<SearchArtistModel> call = service.obtenerBusquedaArtist(Busqueda,"123d7d50ffa67603998ec1042793fd68","json");
-//        call.enqueue(new Callback<SearchArtistModel>() {
-//            @Override
-//            public void onResponse(Call<SearchArtistModel> call, Response<SearchArtistModel> response) {
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResultSearchModel> call, Throwable t) {
-//
-//            }
-//        });
     }
 
     private void obtenerEstado() {

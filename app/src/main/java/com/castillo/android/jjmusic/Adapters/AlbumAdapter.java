@@ -30,11 +30,9 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
     private OnAlbumItemClickListener onAlbumItemClickListener;
 
 
-    //public AlbumAdapter(ArrayList<Album> dataset, AlbumDetailActivity context) {
     public AlbumAdapter(ArrayList<Album> dataset, Context context) {
         this.dataset = dataset;
         this.context = context;
-        //this.onAlbumItemClickListener = context;
 
     }
 
@@ -84,16 +82,7 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.ViewHolder> 
 
         }
 
-//        public void setOnAlbumItemClickListener(final Album album, final OnAlbumItemClickListener onAlbumItemClickListener) {
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    onAlbumItemClickListener.onAlbumItemClick(album);
-//
-//                }
-//            });
-//
-//        }
+
     }
 
 }
