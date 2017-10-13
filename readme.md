@@ -4,7 +4,7 @@
 Es una aplicación, que muestra el top de artistas de tu país, según LAST.FM.
 
 ## LAST.FM
-Es un servicio que permite conocer artistas , albums, tracks, de manera detallada.
+Es un servicio que permite conocer artistas , albums, tracks, de una manera detallada.
  
 ### SERVICIOS CONSUMIDOS
 
